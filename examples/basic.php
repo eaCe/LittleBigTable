@@ -30,7 +30,7 @@
 <body>
     <h1>littleBIGtable</h1>
     <p>This is the basic example with no styling, using the default settings, only the url must be specified.</p>
-    <div x-data="littleBIGtable({url:'/examples/json.php'})" x-init="init()">
+    <div x-data="littleBIGtable({url:'./json.php'})" x-init="init()">
         <table class="table">
             <thead>
                 <tr>
@@ -74,7 +74,7 @@
             </ul>
         </nav>
     </div>
-    <script src="../dist/alpine.min.js" defer></script>
+    <script src="https://unpkg.com/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
     <script src="../dist/littleBIGtable.min.js"></script>
 </body>
 </html>

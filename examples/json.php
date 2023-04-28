@@ -33,7 +33,7 @@ if (isset($_GET['sort'])) {
     }
 }
 // do filters
-if (isset($_GET['search'])) {
+if (isset($_GET['search']) && !isset($_GET['column_search'])) {
     $search = preg_replace('/[^a-z0-9\s\.\_\-]/i', '', $_GET['search']);
     $data = array_filter($data, function($o) use ($search) {
         foreach (get_object_vars($o) as $k=>$v) {
@@ -42,6 +42,32 @@ if (isset($_GET['search'])) {
             }
         }
         return false;
+    });
+}
+
+if (isset($_GET['column_search'])) {
+    $columnParts = [];
+    foreach ($_GET['column_search'] as $column) {
+        if (stristr($column, ':')) {
+            $columnParts[] = explode(':', $column, 2);
+        }
+    }
+
+    $data = array_filter($data, function($o) use ($columnParts) {
+        $inColumn = [];
+        foreach ($columnParts as $columnPart) {
+            if (!property_exists($o, $columnPart[0])) {
+                continue;
+            }
+
+            if (stristr($o->{$columnPart[0]}, $columnPart[1])) {
+                $inColumn[] = 1;
+            } else {
+                $inColumn[] = 0;
+            }
+        }
+
+        return array_product($inColumn);
     });
 }
 
