@@ -39,7 +39,7 @@
     // set this to wherever your data comes from
     url: 'http://localhost:8080/examples/json.php',
     // this is the prefix for the page limit preference, you can may want to change this on a per table basis
-    key_prefix: 'lbt',
+    keyPrefix: 'lbt',
     // change the default status bar messages as you see fit
     messages: {
         loading: 'Loading...',
